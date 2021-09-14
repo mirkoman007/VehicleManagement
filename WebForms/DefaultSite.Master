@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="DefaultSite.master.cs" Inherits="WebForms.DefaultSite" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="Content/css/custom.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm" bis_skin_checked="1">
+            <h5 class="my-0 mr-md-auto font-weight-normal">Vehicle Management</h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <asp:HyperLink NavigateUrl="~/Drivers.aspx" runat="server" Text="Drivers" CssClass="p-2 text-dark"/>
+            </nav>
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+</body>
+</html>
