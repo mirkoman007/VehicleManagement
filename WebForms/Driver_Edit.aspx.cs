@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebForms.Dao;
 using WebForms.Models;
 
 namespace WebForms
 {
     public partial class Driver_Edit : System.Web.UI.Page
     {
-        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-        private const string SELECT_DRIVER = "use VehicleManagement select * from Driver where IDDriver=";
-        private const string DELETE_DRIVER = "use VehicleManagement delete from Driver where IDDriver=";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,28 +25,8 @@ namespace WebForms
 
         private void BindData(int id)
         {
-            Driver d = new Driver();
+            Driver d = SqlHandler.GetDriver(id);
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(SELECT_DRIVER+id.ToString(), con))
-                {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-
-                            d.IDDriver = (int)dr[0];
-                            d.FirstName = dr[1].ToString();
-                            d.LastName = dr[2].ToString();
-                            d.MobileNumber = dr[3].ToString();
-                            d.DriverLicenseNumber = dr[4].ToString();
-                        }
-                    }
-
-                }
-            }
             driverEditTitle.InnerHtml = $"{d.FirstName} {d.LastName} – driver edit";
 
             txtFirstName.Text = d.FirstName;
@@ -75,19 +51,15 @@ namespace WebForms
             d.MobileNumber = txtMobileNumber.Text;
             d.DriverLicenseNumber = txtDriverLicenseNumber.Text;
 
+            SqlHandler.UpdateDriver(d);
+            Response.Redirect("Drivers.aspx");
 
-            //===== Unfinished ==========
 
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(DELETE_DRIVER + Request.QueryString["id"], con);
-                cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
-            }
+            SqlHandler.DeleteDriver(int.Parse(Request.QueryString["id"]));
             Response.Redirect("Drivers.aspx");
         }
     }

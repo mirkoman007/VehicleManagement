@@ -12,5 +12,7 @@ namespace WebForms.Models
         public string LastName { get; set; }
         public string MobileNumber { get; set; }
         public string DriverLicenseNumber { get; set; }
+
+
     }
 }
