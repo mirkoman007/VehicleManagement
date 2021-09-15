@@ -12,6 +12,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Mobile number</th>
                             <th scope="col">Driver license number</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,6 +27,10 @@
                     </td>
                     <td>
                         <%# Eval("DriverLicenseNumber") %>
+                    </td>
+                    <td>
+                        <asp:Button ID="btnEdit" OnClick="btnEdit_Click" Text="Edit" runat="server" CssClass="btn btn-outline-warning btn-sm" CommandArgument='<%# Eval("IDDriver") %>' />
+                        <asp:Button ID="btnDelete" OnClick="btnDelete_Click" OnClientClick="return confirm('Do you really want delete the driver ?')" Text="Delete" runat="server" CssClass="btn btn-outline-danger btn-sm" CommandArgument='<%# Eval("IDDriver") %>' />
                     </td>
                 </tr>
             </ItemTemplate>

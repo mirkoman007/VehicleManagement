@@ -14,22 +14,23 @@ namespace WebForms
     {
         private static readonly string connectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
         private const string SELECT_DRIVERS = "use VehicleManagement select * from Driver";
+        private const string DELETE_DRIVER = "use VehicleManagement delete from Driver where IDDriver=";
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                RepeaterDataBind();
+                BindData();
         }
 
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            RepeaterDataBind();
+            BindData();
 
         }
 
-        private void RepeaterDataBind()
+        private void BindData()
         {
             driverRepeater.DataSource = GetDrivers();
             driverRepeater.DataBind();
@@ -62,6 +63,28 @@ namespace WebForms
             }
         }
 
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            var driverId= int.Parse(btn.CommandArgument);
 
+            Response.Redirect($"~/Driver_Edit.aspx?id={driverId}");
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            var driverId = int.Parse(btn.CommandArgument);
+
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(DELETE_DRIVER + driverId.ToString(), con);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            Response.Redirect("Drivers.aspx");
+
+        }
     }
 }

@@ -1,2 +1,6 @@
-﻿body {
+﻿.title {
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    font-size: 2rem;
 }
