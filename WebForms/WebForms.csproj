@@ -72,6 +72,7 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\custom.css" />
     <Content Include="Drivers.aspx" />
+    <Content Include="Driver_Add.aspx" />
     <Content Include="Driver_Edit.aspx" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
@@ -281,6 +282,13 @@
     </Compile>
     <Compile Include="Drivers.aspx.designer.cs">
       <DependentUpon>Drivers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Driver_Add.aspx.cs">
+      <DependentUpon>Driver_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Driver_Add.aspx.designer.cs">
+      <DependentUpon>Driver_Add.aspx</DependentUpon>
     </Compile>
     <Compile Include="Driver_Edit.aspx.cs">
       <DependentUpon>Driver_Edit.aspx</DependentUpon>

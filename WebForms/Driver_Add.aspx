@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Driver edit" Language="C#" MasterPageFile="~/DefaultSite.Master" AutoEventWireup="true" CodeBehind="Driver_Edit.aspx.cs" Inherits="WebForms.Driver_Edit" %>
+﻿<%@ Page Title="Driver add" Language="C#" MasterPageFile="~/DefaultSite.Master" AutoEventWireup="true" CodeBehind="Driver_Add.aspx.cs" Inherits="WebForms.Driver_Add" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+    
     <div class="container">
-        <div class="title" runat="server" id="driverEditTitle"></div>
+        <div class="title">Add new driver</div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -32,13 +32,9 @@
                 </div>
             </div>
         </div>
-
         <div class="btn-group float-right my-5" role="group">
             <asp:Button ID="btnCancel" OnClick="btnCancel_Click" Text="Cancel" runat="server" CssClass="btn btn-secondary" CausesValidation="false"/>
             <asp:Button ID="btnSave" OnClick="btnSave_Click" Text="Save" runat="server" CssClass="btn btn-success" />
-            <asp:Button ID="btnDelete" OnClick="btnDelete_Click" OnClientClick="return confirm('Do you really want delete the driver ?')" Text="Delete" runat="server" CssClass="btn btn-danger" />
         </div>
     </div>
-
-
 </asp:Content>

@@ -40,6 +40,9 @@
 
             </FooterTemplate>
         </asp:Repeater>
+        <div class="btn-group float-right mb-5" role="group">
+            <asp:Button ID="btnAdd" OnClick="btnAdd_Click" Text="Add new driver" runat="server" CssClass="btn btn-secondary" />
+        </div>
     </div>
 
 </asp:Content>

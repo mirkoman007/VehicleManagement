@@ -45,8 +45,14 @@ namespace WebForms
 
 
             SqlHandler.DeleteDriver(idDriver);
-            Response.Redirect("Drivers.aspx");
+            Response.Redirect("~/Drivers.aspx");
 
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
+            Response.Redirect("~/Driver_Add.aspx");
         }
     }
 }

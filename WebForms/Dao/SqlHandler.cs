@@ -17,6 +17,7 @@ namespace WebForms.Dao
         private const string SELECT_DRIVER = DB_SELECT+ "select * from Driver where IDDriver=";
         private const string DELETE_DRIVER = DB_SELECT+"delete from Driver where IDDriver=";
         private const string UPDATE_DRIVER = DB_SELECT+"update Driver set ";
+        private const string INSERT_DRIVER = DB_SELECT+ "INSERT INTO Driver (FirstName,LastName,MobileNumber,DriverLicenseNumber) VALUES";
 
 
         internal static IEnumerable<Driver> GetDrivers()
@@ -42,6 +43,16 @@ namespace WebForms.Dao
                     }
 
                 }
+            }
+        }
+
+        internal static void AddDriver(Driver d)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(INSERT_DRIVER + $"('{d.FirstName}','{d.LastName}','{d.MobileNumber}','{d.DriverLicenseNumber}')", con);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
             }
         }
 

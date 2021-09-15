@@ -38,7 +38,7 @@ namespace WebForms
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Drivers.aspx");
+            Response.Redirect("~/Drivers.aspx");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -52,7 +52,7 @@ namespace WebForms
             d.DriverLicenseNumber = txtDriverLicenseNumber.Text;
 
             SqlHandler.UpdateDriver(d);
-            Response.Redirect("Drivers.aspx");
+            Response.Redirect("~/Drivers.aspx");
 
 
         }
@@ -60,7 +60,7 @@ namespace WebForms
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             SqlHandler.DeleteDriver(int.Parse(Request.QueryString["id"]));
-            Response.Redirect("Drivers.aspx");
+            Response.Redirect("~/Drivers.aspx");
         }
     }
 }
