@@ -18,6 +18,11 @@ namespace WebForms.Dao
         private const string UPDATE_DRIVER = "update Driver set ";
         private const string INSERT_DRIVER = "INSERT INTO Driver (FirstName,LastName,MobileNumber,DriverLicenseNumber) VALUES";
 
+        private const string ID_VEHICLE = "@idVehicle";
+        private const string MAKE = "@make";
+        private const string VEHICLE_TYPE = "@vehicleType";
+        private const string FIRST_REGISTRATION = "@firstRegistration";
+        private const string MILEAGE = "@mileage";
 
         internal static IEnumerable<Driver> GetDrivers()
         {
@@ -44,6 +49,7 @@ namespace WebForms.Dao
                 }
             }
         }
+
 
         internal static Driver GetDriver(int id)
         {
@@ -126,6 +132,95 @@ namespace WebForms.Dao
                             };
                         }
                     }
+                }
+            }
+        }
+        internal static Vehicle GetVehicle(int idVehicle)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = nameof(GetVehicle);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue(ID_VEHICLE, idVehicle);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new Vehicle
+                            {
+                                IDVehicle = (int)dr[nameof(Vehicle.IDVehicle)],
+                                Make = dr[nameof(Vehicle.Make)].ToString(),
+                                VehicleType= dr[nameof(Vehicle.VehicleType)].ToString(),
+                                FirstRegistration= (int)dr[nameof(Vehicle.FirstRegistration)],
+                                Mileage=(int)dr[nameof(Vehicle.Mileage)]
+
+                            };
+                            
+                        }
+                    }
+
+                }
+            }
+            throw new Exception("No such vehicle");
+        }
+
+        internal static int AddVehicle(Vehicle v)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = nameof(AddVehicle);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue(MAKE, v.Make);
+                    cmd.Parameters.AddWithValue(VEHICLE_TYPE, v.VehicleType);
+                    cmd.Parameters.AddWithValue(FIRST_REGISTRATION, v.FirstRegistration);
+                    cmd.Parameters.AddWithValue(MILEAGE, v.Mileage);
+                    SqlParameter idVehicle = new SqlParameter(ID_VEHICLE, System.Data.SqlDbType.Int)
+                    {
+                        Direction = System.Data.ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(idVehicle);
+                    cmd.ExecuteNonQuery();
+                    return (int)(idVehicle.Value);
+                }
+            }
+        }
+
+        internal static int UpdateVehicle(Vehicle v)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = nameof(UpdateVehicle);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue(ID_VEHICLE, v.IDVehicle);
+                    cmd.Parameters.AddWithValue(MAKE, v.Make);
+                    cmd.Parameters.AddWithValue(VEHICLE_TYPE, v.VehicleType);
+                    cmd.Parameters.AddWithValue(FIRST_REGISTRATION, v.FirstRegistration);
+                    cmd.Parameters.AddWithValue(MILEAGE, v.Mileage);
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        internal static int DeleteVehicle(int idVehicle)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = nameof(DeleteVehicle);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue(ID_VEHICLE, idVehicle);
+                    return cmd.ExecuteNonQuery();
                 }
             }
         }

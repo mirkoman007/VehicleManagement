@@ -267,6 +267,8 @@
     <Content Include="T-SQL\InsertExampleRecords.sql" />
     <Content Include="T-SQL\CreateDbWithTables.sql" />
     <Content Include="Vehicles.aspx" />
+    <Content Include="Vehicle_Add.aspx" />
+    <Content Include="Vehicle_Edit.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +313,20 @@
     </Compile>
     <Compile Include="Vehicles.aspx.designer.cs">
       <DependentUpon>Vehicles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vehicle_Add.aspx.cs">
+      <DependentUpon>Vehicle_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vehicle_Add.aspx.designer.cs">
+      <DependentUpon>Vehicle_Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vehicle_Edit.aspx.cs">
+      <DependentUpon>Vehicle_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vehicle_Edit.aspx.designer.cs">
+      <DependentUpon>Vehicle_Edit.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

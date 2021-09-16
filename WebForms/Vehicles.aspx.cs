@@ -40,6 +40,12 @@ namespace WebForms
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            var btn = sender as Button;
+            var idVehicle = int.Parse(btn.CommandArgument);
+
+
+            SqlHandler.DeleteVehicle(idVehicle);
+            Response.Redirect("~/Vehicles.aspx");
 
         }
 

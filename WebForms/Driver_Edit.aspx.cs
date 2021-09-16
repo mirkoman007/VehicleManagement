@@ -16,7 +16,7 @@ namespace WebForms
         {
 
             var id = Request.QueryString["id"];
-            if (id == null) Response.Redirect("Drivers.aspx");
+            if (id == null) Response.Redirect("~/Drivers.aspx");
 
             if (!IsPostBack)
                 BindData(int.Parse(id));
