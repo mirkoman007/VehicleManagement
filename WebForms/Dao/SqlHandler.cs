@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using WebForms.Models;
 
@@ -11,6 +13,8 @@ namespace WebForms.Dao
     public class SqlHandler
     {
         private static readonly string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
+        private static SqlDatabase db = new SqlDatabase(cs);
+
 
         private const string SELECT_DRIVERS = "select * from Driver";
         private const string SELECT_DRIVER = "select * from Driver where IDDriver=";
@@ -191,6 +195,7 @@ namespace WebForms.Dao
             }
         }
 
+
         internal static int UpdateVehicle(Vehicle v)
         {
             using (SqlConnection con = new SqlConnection(cs))
@@ -224,5 +229,56 @@ namespace WebForms.Dao
                 }
             }
         }
+
+
+        //---------for XML backup
+
+        internal static int AddDriverWithReturn(Driver d)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = nameof(AddDriverWithReturn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@firstName", d.FirstName);
+                    cmd.Parameters.AddWithValue("@lastName", d.LastName);
+                    cmd.Parameters.AddWithValue("@mobileNumber", d.MobileNumber);
+                    cmd.Parameters.AddWithValue("@driverLicenseNumber", d.DriverLicenseNumber);
+                    SqlParameter idDriver = new SqlParameter("@idDriver", System.Data.SqlDbType.Int)
+                    {
+                        Direction = System.Data.ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(idDriver);
+                    cmd.ExecuteNonQuery();
+                    return (int)(idDriver.Value);
+                }
+            }
+        }
+        internal static int AddTravelWarrant(TravelWarrant tw)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = nameof(AddTravelWarrant);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@warrantStatus", tw.WarrantStatus);
+                    cmd.Parameters.AddWithValue("@driverID", tw.DriverID);
+                    cmd.Parameters.AddWithValue("@vehicleID", tw.VehicleID);
+                    SqlParameter idTravelWarrant = new SqlParameter("@idTravelWarrant", System.Data.SqlDbType.Int)
+                    {
+                        Direction = System.Data.ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(idTravelWarrant);
+                    cmd.ExecuteNonQuery();
+                    return (int)(idTravelWarrant.Value);
+                }
+            }
+        }
+        internal static int AddTWRoute(TWRoute r) => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name, r.Duration,r.StartX,r.StartY,r.StopX,r.StopY,r.Mileage,r.AverageSpeed,r.FuelConsumption,r.TravelWarrantID);
+
     }
 }
