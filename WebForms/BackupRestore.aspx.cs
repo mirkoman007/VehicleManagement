@@ -29,7 +29,7 @@ namespace WebForms
         protected void btnBackup_Click(object sender, EventArgs e)
         {
             CreateXml();
-            lblNotification.Text = "Backup completed successfully";
+            lblInfo.Text = $"<div class=\"alert alert-success\" role=\"alert\">"+ "Backup completed successfully" + "</div>";
         }
 
         private void CreateXml()
@@ -79,6 +79,7 @@ namespace WebForms
         protected void btnRestore_Click(object sender, EventArgs e)
         {
             XMLtoSQL();
+            lblInfo.Text = $"<div class=\"alert alert-success\" role=\"alert\">" + "Restore completed successfully" + "</div>";
         }
 
         private void XMLtoSQL()
@@ -138,7 +139,7 @@ namespace WebForms
                                     twRoutes.Add(new TWRoute
                                     {
                                         IDTWRoute = (int)routeRow[nameof(TWRoute.IDTWRoute)],
-                                        Duration = routeRow[nameof(TWRoute.Duration)].ToString(),
+                                        Duration = (int)routeRow[nameof(TWRoute.Duration)],
                                         StartX = (int)routeRow[nameof(TWRoute.StartX)],
                                         StartY = (int)routeRow[nameof(TWRoute.StartY)],
                                         StopX = (int)routeRow[nameof(TWRoute.StopX)],
@@ -179,6 +180,42 @@ namespace WebForms
             });
 
 
+
+        }
+
+        protected void btnClearData_Click(object sender, EventArgs e)
+        {
+            using (var db = new ModelContainer())
+            {
+
+
+                db.TWRoutes.ToList().ForEach(item =>
+                {
+
+                    db.TWRoutes.Remove(item);
+                });
+
+                db.TravelWarrants.ToList().ForEach(item =>
+                {
+
+                    db.TravelWarrants.Remove(item);
+                });
+
+                db.Vehicles.ToList().ForEach(item =>
+                {
+
+                    db.Vehicles.Remove(item);
+                });
+
+                db.Drivers.ToList().ForEach(item =>
+                {
+
+                    db.Drivers.Remove(item);
+                });
+
+                db.SaveChanges();
+            }
+            lblInfo.Text = $"<div class=\"alert alert-success\" role=\"alert\">" + "Clear data completed successfully" + "</div>";
 
         }
     }

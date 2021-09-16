@@ -8,7 +8,7 @@ namespace WebForms.Models
     public class TWRoute
     {
         public int IDTWRoute { get; set; }
-        public string Duration { get; set; }
+        public int Duration { get; set; }
         public int StartX { get; set; }
         public int StartY { get; set; }
         public int StopX { get; set; }

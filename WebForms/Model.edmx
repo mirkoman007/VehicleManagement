@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="IDDriver" />
+          </Key>
+          <Property Name="IDDriver" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriverLicenseNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TravelWarrant">
+          <Key>
+            <PropertyRef Name="IDTravelWarrant" />
+          </Key>
+          <Property Name="IDTravelWarrant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarrantStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="DriverID" Type="int" />
+          <Property Name="VehicleID" Type="int" />
+        </EntityType>
+        <EntityType Name="TWRoute">
+          <Key>
+            <PropertyRef Name="IDTWRoute" />
+          </Key>
+          <Property Name="IDTWRoute" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="StartX" Type="int" />
+          <Property Name="StartY" Type="int" />
+          <Property Name="StopX" Type="int" />
+          <Property Name="StopY" Type="int" />
+          <Property Name="Mileage" Type="float" />
+          <Property Name="AverageSpeed" Type="int" />
+          <Property Name="FuelConsumption" Type="int" />
+          <Property Name="TravelWarrantID" Type="int" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="IDVehicle" />
+          </Key>
+          <Property Name="IDVehicle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Make" Type="nvarchar" MaxLength="50" />
+          <Property Name="VehicleType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstRegistration" Type="int" />
+          <Property Name="Mileage" Type="int" />
+        </EntityType>
+        <Association Name="FK__TravelWar__Drive__3D5E1FD2">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="TravelWarrant" Type="Self.TravelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="IDDriver" />
+            </Principal>
+            <Dependent Role="TravelWarrant">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TravelWar__Vehic__3E52440B">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="TravelWarrant" Type="Self.TravelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="IDVehicle" />
+            </Principal>
+            <Dependent Role="TravelWarrant">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TWRoute__TravelW__4BAC3F29">
+          <End Role="TravelWarrant" Type="Self.TravelWarrant" Multiplicity="0..1" />
+          <End Role="TWRoute" Type="Self.TWRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelWarrant">
+              <PropertyRef Name="IDTravelWarrant" />
+            </Principal>
+            <Dependent Role="TWRoute">
+              <PropertyRef Name="TravelWarrantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TravelWarrant" EntityType="Self.TravelWarrant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TWRoute" EntityType="Self.TWRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TravelWar__Drive__3D5E1FD2" Association="Self.FK__TravelWar__Drive__3D5E1FD2">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="TravelWarrant" EntitySet="TravelWarrant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TravelWar__Vehic__3E52440B" Association="Self.FK__TravelWar__Vehic__3E52440B">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="TravelWarrant" EntitySet="TravelWarrant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TWRoute__TravelW__4BAC3F29" Association="Self.FK__TWRoute__TravelW__4BAC3F29">
+            <End Role="TravelWarrant" EntitySet="TravelWarrant" />
+            <End Role="TWRoute" EntitySet="TWRoute" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="IDDriver" />
+          </Key>
+          <Property Name="IDDriver" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverLicenseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TravelWarrants" Relationship="Self.FK__TravelWar__Drive__3D5E1FD2" FromRole="Driver" ToRole="TravelWarrant" />
+        </EntityType>
+        <EntityType Name="TravelWarrant">
+          <Key>
+            <PropertyRef Name="IDTravelWarrant" />
+          </Key>
+          <Property Name="IDTravelWarrant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarrantStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DriverID" Type="Int32" />
+          <Property Name="VehicleID" Type="Int32" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK__TravelWar__Drive__3D5E1FD2" FromRole="TravelWarrant" ToRole="Driver" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK__TravelWar__Vehic__3E52440B" FromRole="TravelWarrant" ToRole="Vehicle" />
+          <NavigationProperty Name="TWRoutes" Relationship="Self.FK__TWRoute__TravelW__4BAC3F29" FromRole="TravelWarrant" ToRole="TWRoute" />
+        </EntityType>
+        <EntityType Name="TWRoute">
+          <Key>
+            <PropertyRef Name="IDTWRoute" />
+          </Key>
+          <Property Name="IDTWRoute" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="StartX" Type="Int32" />
+          <Property Name="StartY" Type="Int32" />
+          <Property Name="StopX" Type="Int32" />
+          <Property Name="StopY" Type="Int32" />
+          <Property Name="Mileage" Type="Double" />
+          <Property Name="AverageSpeed" Type="Int32" />
+          <Property Name="FuelConsumption" Type="Int32" />
+          <Property Name="TravelWarrantID" Type="Int32" />
+          <NavigationProperty Name="TravelWarrant" Relationship="Self.FK__TWRoute__TravelW__4BAC3F29" FromRole="TWRoute" ToRole="TravelWarrant" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="IDVehicle" />
+          </Key>
+          <Property Name="IDVehicle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstRegistration" Type="Int32" />
+          <Property Name="Mileage" Type="Int32" />
+          <NavigationProperty Name="TravelWarrants" Relationship="Self.FK__TravelWar__Vehic__3E52440B" FromRole="Vehicle" ToRole="TravelWarrant" />
+        </EntityType>
+        <Association Name="FK__TravelWar__Drive__3D5E1FD2">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="TravelWarrant" Type="Self.TravelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="IDDriver" />
+            </Principal>
+            <Dependent Role="TravelWarrant">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TravelWar__Vehic__3E52440B">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="TravelWarrant" Type="Self.TravelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="IDVehicle" />
+            </Principal>
+            <Dependent Role="TravelWarrant">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TWRoute__TravelW__4BAC3F29">
+          <End Role="TravelWarrant" Type="Self.TravelWarrant" Multiplicity="0..1" />
+          <End Role="TWRoute" Type="Self.TWRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelWarrant">
+              <PropertyRef Name="IDTravelWarrant" />
+            </Principal>
+            <Dependent Role="TWRoute">
+              <PropertyRef Name="TravelWarrantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="TravelWarrants" EntityType="Self.TravelWarrant" />
+          <EntitySet Name="TWRoutes" EntityType="Self.TWRoute" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <AssociationSet Name="FK__TravelWar__Drive__3D5E1FD2" Association="Self.FK__TravelWar__Drive__3D5E1FD2">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="TravelWarrant" EntitySet="TravelWarrants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TravelWar__Vehic__3E52440B" Association="Self.FK__TravelWar__Vehic__3E52440B">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="TravelWarrant" EntitySet="TravelWarrants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TWRoute__TravelW__4BAC3F29" Association="Self.FK__TWRoute__TravelW__4BAC3F29">
+            <End Role="TravelWarrant" EntitySet="TravelWarrants" />
+            <End Role="TWRoute" EntitySet="TWRoutes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="Model.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="IDDriver" ColumnName="IDDriver" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="DriverLicenseNumber" ColumnName="DriverLicenseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelWarrants">
+            <EntityTypeMapping TypeName="Model.TravelWarrant">
+              <MappingFragment StoreEntitySet="TravelWarrant">
+                <ScalarProperty Name="IDTravelWarrant" ColumnName="IDTravelWarrant" />
+                <ScalarProperty Name="WarrantStatus" ColumnName="WarrantStatus" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TWRoutes">
+            <EntityTypeMapping TypeName="Model.TWRoute">
+              <MappingFragment StoreEntitySet="TWRoute">
+                <ScalarProperty Name="IDTWRoute" ColumnName="IDTWRoute" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="StartX" ColumnName="StartX" />
+                <ScalarProperty Name="StartY" ColumnName="StartY" />
+                <ScalarProperty Name="StopX" ColumnName="StopX" />
+                <ScalarProperty Name="StopY" ColumnName="StopY" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="AverageSpeed" ColumnName="AverageSpeed" />
+                <ScalarProperty Name="FuelConsumption" ColumnName="FuelConsumption" />
+                <ScalarProperty Name="TravelWarrantID" ColumnName="TravelWarrantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="Model.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="IDVehicle" ColumnName="IDVehicle" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="FirstRegistration" ColumnName="FirstRegistration" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

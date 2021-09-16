@@ -24,15 +24,6 @@ namespace WebForms
         protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
-        /// lblNotification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNotification;
-
-        /// <summary>
         /// btnBackup control.
         /// </summary>
         /// <remarks>
@@ -49,5 +40,14 @@ namespace WebForms
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRestore;
+
+        /// <summary>
+        /// btnClearData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClearData;
     }
 }
