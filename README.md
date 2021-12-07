@@ -7,3 +7,4 @@ Vehicle management application for demo purpose.
 
 Addons:
 - [CSV import](https://github.com/mirkoman007/VehicleManagementAddon-CSV_import)
+- [PDF report (Hibernate ORM)](https://github.com/mirkoman007/VehicleManagementAddon-PDF_report)
